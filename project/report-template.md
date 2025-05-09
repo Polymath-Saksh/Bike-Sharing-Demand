@@ -8,11 +8,15 @@
 
 - All predictions were needed to be positive for Kaggle Submission.
 
-- Test data didn't have
+- Test data didn't have the casual and registered columns, so I had to ignore their importance in the final submission.
+
+- Kaggle requires all predictions to be positive, so I had to apply a ReLU activation function to the predictions to ensure that all values were non-negative.
 
 ### What was the top ranked model that performed?
 
-Weighted_Ensemble_L3 scored the best
+- Weighted_Ensemble_L3 scored the best on all the iterations of models. It is an ensemble model that combines the predictions of multiple models to improve accuracy, with equal weightage given to all weak learners.
+
+- The score ranged from 1.76235 to 1.32235 on the leaderboard, which is explained in the top models section.
 
 ## Exploratory data analysis and feature creation
 
@@ -32,10 +36,18 @@ Weighted_Ensemble_L3 scored the best
 
 ### How much better did your model preform after trying different hyper parameters?
 
-Learnings with AutoGluon:
-
 - Increasing the time limit works better for allowing AutoGluon to train more models.
 - Though changing the presets from the default to "best_quality" to "experimental_quality". I expected for better results, but it almost gave the same, though a little worse score.
+
+- Scheduler was set to "local", allowing better control over the training process and parallelization of the model execution.
+
+- Number of Trials were incremented from 8 to 10, allowing AutoGluon to explore more hyperparameter combinations and find the best performing model.
+
+- Presets were changed from "best_quality" to "good_quality" and "experimental_quality", which allowed AutoGluon to explore different hyperparameter combinations and find the best performing model.
+
+- The model accuracy increased on changing from default params. The models showed little improvement in the score, but is significant in terms of the time taken to train the model.
+
+- The final model was able to achieve a score of 1.32235 on the Kaggle leaderboard, lesser than the previous scores of 1.75757, 1.32783 and 1.32961.
 
 ### If you were given more time with this dataset, where do you think you would spend more time?
 
@@ -45,12 +57,12 @@ Learnings with AutoGluon:
 
 ### Create a table with the models you ran, the hyperparameters modified, and the kaggle score.
 
-| model        | hpo1    | hpo2    | hpo3                 | score   |
-| ------------ | ------- | ------- | -------------------- | ------- |
-| initial      | default | default | experimental_quality | 1.76235 |
-| add_features | default | default | r2                   | 1.32783 |
-| hpo          | default | default | 1 GPU                | 1.33795 |
-| new_hpo      | default | default | 1 GPU                | 1.32235 |
+| Model        | Scheduler | Num Trials | Presets              | Score   |
+| ------------ | --------- | ---------- | -------------------- | ------- |
+| initial      | default   | default    | best_quality         | 1.75757 |
+| add_features | local     | 8          | good_quality         | 1.32783 |
+| hpo          | local     | 10         | experimental_quality | 1.32961 |
+| new_hpo      | local     | 10         | best_quality         | 1.32244 |
 
 ### Correlation matrix between features.
 
@@ -80,4 +92,4 @@ The demand is less in the winter months and more in the summer and monsoon month
 
 ## Summary
 
-The bike sharing demand prediction using AutoGluon is a great way to understand the demand patterns and make accurate predictions. It is helpful to understand data preprocessing, feature engineering, and hyperparameter tuning to create robust predictive models. In this work, four instances of AutoGluon were used to train the model, and the best performing model was selected based on the Kaggle score. The final model was able to achieve a score of 1.32235 on the Kaggle leaderboard.
+The bike sharing demand prediction using AutoGluon is a great way to understand the demand patterns and make accurate predictions. It is helpful to understand data preprocessing, feature engineering, and hyperparameter tuning to create robust predictive models. In this work, four instances of AutoGluon were used to train the model, and the best performing model was selected based on the Kaggle score. The final model was able to achieve a score of 1.32244 on the Kaggle leaderboard.
