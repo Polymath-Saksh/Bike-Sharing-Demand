@@ -1,0 +1,4 @@
+# Ignore all files in the AutogluonModels directory
+project/AutogluonModels/
+*.csv
+*.zip
